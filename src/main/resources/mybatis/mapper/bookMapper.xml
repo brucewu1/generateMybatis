@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.homejim.mybatis.mapper.bookMapper">
+  <resultMap id="BaseResultMap" type="com.homejim.mybatis.entity.book">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="isbn" jdbcType="VARCHAR" property="isbn" />
+    <result column="reader" jdbcType="VARCHAR" property="reader" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, author, description, isbn, reader, title
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from book
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from book
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.homejim.mybatis.entity.book">
+    insert into book (id, author, description, 
+      isbn, reader, title
+      )
+    values (#{id,jdbcType=BIGINT}, #{author,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{isbn,jdbcType=VARCHAR}, #{reader,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.homejim.mybatis.entity.book">
+    insert into book
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="isbn != null">
+        isbn,
+      </if>
+      <if test="reader != null">
+        reader,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn != null">
+        #{isbn,jdbcType=VARCHAR},
+      </if>
+      <if test="reader != null">
+        #{reader,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.homejim.mybatis.entity.book">
+    update book
+    <set>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn != null">
+        isbn = #{isbn,jdbcType=VARCHAR},
+      </if>
+      <if test="reader != null">
+        reader = #{reader,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.homejim.mybatis.entity.book">
+    update book
+    set author = #{author,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      isbn = #{isbn,jdbcType=VARCHAR},
+      reader = #{reader,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
